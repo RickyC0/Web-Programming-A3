@@ -1,0 +1,78 @@
+<%- include('partials/header' , {title:'Find A Pet', css: '/css/ex4/find-pet.css'})%>
+
+<div id="main_content_div">
+
+    <h1 style="text-align: center; text-decoration: underline;">Find A Pet</h1>
+
+    <form id="find-pet-form">
+        <fieldset class="form-section">
+            <legend>Pet Information</legend>
+
+            <div class="form-group">
+                <label for="pet-type">Pet Type:</label>
+                <select id="pet-type" name="pet-type" aria-label="Pet Type" required>
+                    <option value="">Select a pet type</option>
+                    <option value="dog">Dog</option>
+                    <option value="cat">Cat</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="breed">Breed (or closest approximation):</label>
+                <input type="text" id="breed" name="breed" placeholder="Breed" pattern="[A-Za-z\s-]+" required>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age of Animal:</label>
+                <select id="age" name="age" required>
+                    <option value="">Select an age range</option>
+                    <option value="0-1">0 - 1 year</option>
+                    <option value="2-5">2 - 5 years</option>
+                    <option value="6-10">6 - 10 years</option>
+                    <option value="10+">10+ years</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Animal Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="gets-along-dogs">Gets along with other dogs:</label>
+                <input type="checkbox" id="gets-along-dogs" name="gets-along-dogs">
+            </div>
+
+            <div class="form-group">
+                <label for="gets-along-cats">Gets along with other cats:</label>
+                <input type="checkbox" id="gets-along-cats" name="gets-along-cats">
+            </div>
+
+            <div class="form-group">
+                <label for="suitable-for-children">Suitable for a family with small children:</label>
+                <input type="checkbox" id="suitable-for-children" name="suitable-for-children">
+            </div>
+
+            <div class="form-group">
+                <label for="comments">Comments:</label>
+                <textarea id="comments" name="comments" rows="4" placeholder="Comments..." pattern="[A-Za-z0-9]"></textarea>
+            </div>
+        </fieldset>
+
+        <div class="form-actions">
+            <button type="submit" class="submit-btn" onclick="validateFormInput()">Submit</button>
+            <button type="reset" class="clear-btn">Clear</button>
+        </div>
+    </form>
+
+</div>
+
+<script src="/js/ex4/find-pet.js"></script>
+
+<%- include('partials/footer')%>
+
