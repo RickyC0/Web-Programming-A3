@@ -48,17 +48,28 @@ app.post('/ex1/uppercaseFirstandLast',(req,res)=>{
 
 app.post('/ex1/findAverageAndMedian', (req,res)=>{
     const input=req.body.data;
-    const result=findAverageAndMedian(input);
+    const array = input.split(' ').map(Number);
+    const result=findAverageAndMedian(array);
 
     if(result===false){
         res.send("Please enter a valid sequence of numbers");
     }
 
     else{
-        res.send(`The result is: ${result}`);
+        res.send(`Average: ${result[0]}<br>Median: ${result[1]}`);
     }
 })
 
+app.post('/ex1/find4Digits', (req,res)=>{
+    const input=req.body.data;
+    const output=find4Digits(input);
+
+    if(output===false)
+        res.send("Enter a valid sequence of numbers!")
+
+    else
+        res.send(`The first 4-digit number is: ${output}`)
+})
 app.get('/ex2', (req, res) => {
     res.render('ex2/index');
 });
@@ -132,57 +143,55 @@ function uppercaseFirstandLast(str) {
 }
 
 //TODO Fix this
-function findAverageAndMedian(array) {
-    // Ensure the input is actually an array
-    if (!Array.isArray(array)) {
-        return false;  // Return false if input is not an array
+function findAverageAndMedian(input) {
+    // Handle the case where the input might be empty or contains non-numeric values
+    if (input.length === 0 || input.some(isNaN)) {
+        return [0, 0];  // Return 0s for both average and median if the input is invalid
     }
 
-    if (array.length === 0) {
-        return [0, 0];  // Return 0s for both average and median if the array is empty
-    }
 
-    let sum = 0;
-    for (let i = 0; i < array.length; i++) {
-        if (isNaN(array[i])) {
-            return false;  // Return false if any element is not a number
-        }
-        sum += array[i];
-    }
+    let sum = input.reduce((acc, num) => acc + num, 0);
+    let average = sum / input.length;
 
-    let average = sum / array.length;  // Calculate the average
-
-    // Sort the array numerically to find the median
-    array.sort(function(a, b) { return a - b; }); // Correct use of the sort method
+    // Sort the input numerically to find the median
+    input.sort((a, b) => a - b);
 
     let median = 0;
-    const midIndex = Math.floor(array.length / 2);
+    const midIndex = Math.floor(input.length / 2)+1;
 
-    if (array.length % 2 === 0) {
+    if (input.length % 2 === 0) {
         // If even number of elements, median is the average of the two middle numbers
-        median = (array[midIndex] + array[midIndex - 1]) / 2;
+        median = (input[midIndex] + input[midIndex - 1]) / 2;
     } else {
         // If odd, median is the middle element
-        median = array[midIndex];
+        median = input[midIndex];
     }
+
+    average=average.toFixed(3);
 
     return [average, median];
 }
 
-function find4Digits(str){
-    if(str.length===0){
+function find4Digits(str) {
+    if (str.length === 0) {
         return false;
     }
 
-    else{
-        let digits="";
+    // Find all groups of consecutive digits in the string
+    let matches = str.match(/\d+/g);
 
-        if(str.match(/\d+/g)!=null){
-            digits=str.match(/\d+/g).join(',');
-        }
-
-        return digits;
+    if (!matches) {
+        return false;
     }
+
+    // Look for the first number that is exactly four digits long
+    for (let num of matches) {
+        if (num.length=== 4 ) {
+            return num;  // Return the first four-digit number
+        }
+    }
+
+    return false;
 }
 
 // Start the server
