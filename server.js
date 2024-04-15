@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const nbOfVisitsRouter=require('./routes/nbOfVisits');
+const formValidationRouter=require('./routes/formValidation');
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
@@ -74,9 +75,7 @@ app.post('/ex1/find4Digits', (req,res)=>{
 
 app.use('/ex2',nbOfVisitsRouter);
 
-app.get('/ex3', (req, res) => {
-    res.render('ex3/index');
-});
+app.use('/ex3',formValidationRouter);
 
 // Routes for Exercise 4 (Pet Store) with multiple sub-pages
 app.get('/ex4', (req, res) => {
