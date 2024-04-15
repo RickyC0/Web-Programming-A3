@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const nbOfVisitsRouter=require('./routes/nbOfVisits');
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
@@ -70,9 +71,8 @@ app.post('/ex1/find4Digits', (req,res)=>{
     else
         res.send(`The first 4-digit number is: ${output}`)
 })
-app.get('/ex2', (req, res) => {
-    res.render('ex2/index');
-});
+
+app.use('/ex2',nbOfVisitsRouter);
 
 app.get('/ex3', (req, res) => {
     res.render('ex3/index');
@@ -157,14 +157,14 @@ function findAverageAndMedian(input) {
     input.sort((a, b) => a - b);
 
     let median = 0;
-    const midIndex = Math.floor(input.length / 2)+1;
+    const midIndex = Math.floor(input.length / 2);
 
     if (input.length % 2 === 0) {
         // If even number of elements, median is the average of the two middle numbers
         median = (input[midIndex] + input[midIndex - 1]) / 2;
     } else {
         // If odd, median is the middle element
-        median = input[midIndex];
+        median = input[midIndex+1];
     }
 
     average=average.toFixed(3);
