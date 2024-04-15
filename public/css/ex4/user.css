@@ -65,3 +65,9 @@ h2 {
 div {
     margin-bottom: 2rem; /* Space between form groups */
 }
+
+.format-description {
+    font-size: 0.8em; /* Smaller font size for descriptions */
+    color: #6c757d; /* Muted color for less emphasis */
+    margin-bottom: 5px; /* Spacing below the description */
+}

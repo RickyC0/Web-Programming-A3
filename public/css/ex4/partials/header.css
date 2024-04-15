@@ -43,7 +43,7 @@ body {
    margin: 1%;
 }
 
-#login_header_div a button {
+#login_header_div button {
     font-size: 1rem;
     padding: 10px 20px;
     background-color: #084050;
@@ -54,7 +54,7 @@ body {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-#login_header_div a button:hover {
+#login_header_div button:hover {
     background-color: #02638c;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

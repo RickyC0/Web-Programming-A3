@@ -6,6 +6,9 @@ const app = express();
 const nbOfVisitsRouter=require('./routes/nbOfVisits');
 const formValidationRouter=require('./routes/formValidation');
 const userValidation=require('./routes/users');
+const session = require('express-session');
+
+
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
@@ -16,14 +19,21 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files (CSS, JS, Images)
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+    secret: 'your_secret_key', // secret key to sign the session ID cookie
+    resave: false, // don't save session if unmodified
+    saveUninitialized: false, // don't create session until something stored
+    cookie: { secure: false } // TRUE for production with HTTPS, false for development
+}));
+
 // Route for the main index page
 app.get('/', (req, res) => {
-    res.render('index');  // This will render the index.ejs file where your 4 options are defined
+    res.render('index');
 });
 
 // Routes for exercises
 app.get('/ex1', (req, res) => {
-    res.render('ex1');
+    res.render('ex1',{ user: req.session.user });
 });
 
 app.post('/ex1/findSummation', (req, res) => {
@@ -84,25 +94,31 @@ app.use('/ex3',formValidationRouter);
 
 
 app.get('/ex4', (req, res) => {
-    res.render('ex4/home');
+        res.render('ex4/home',{ user: req.session.user });
 });
 
 app.use('/ex4/user', userValidation);
 
 app.get('/ex4/find-pet', (req, res) => {
-    res.render('ex4/find-pet');
+    res.render('ex4/find-pet',{ user: req.session.user });
 });
 
 app.get('/ex4/contact', (req, res) => {
-    res.render('ex4/contact');
+    res.render('ex4/contact',{ user: req.session.user });
 });
 
 app.get('/ex4/give-pet', (req, res) => {
-    res.render('ex4/give-pet');
+    if(req.session.user) {
+        res.render('ex4/give-pet',{ user: req.session.user });
+    }
+
+    else{
+        res.redirect('user');
+    }
 });
 
 app.get('/ex4/pet-care', (req,res)=>{
-    res.render('ex4/pet-care');
+    res.render('ex4/pet-care',{ user: req.session.user });
 })
 
 app.use((req, res, next) => {

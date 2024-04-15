@@ -40,9 +40,11 @@
         </div>
 
         <div id="login_header_div">
-            <a href='/ex4/user'>
-                <button>Login/Signup</button>
-            </a>
+            <% if (user) { %>
+                <button onclick="location.href='/ex4/user/logout'">Logout</button>
+            <% } else { %>
+                <button onclick="location.href='/ex4/user'">Login/Signup</button>
+            <% } %>
         </div>
 
 
