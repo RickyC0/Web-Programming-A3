@@ -1,0 +1,131 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+
+.top-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Changed from space-around to flex-start */
+    padding: 0 20px;
+    background-color: #f8f8f8;
+}
+
+#header_logo_div{
+    flex: 0 0 10%;
+}
+#header_logo_div img {
+    height: 75%;
+    width: 75%;
+}
+
+#time-in-header-div{
+    margin:1%;
+}
+
+#time-in-header {
+    padding: 8px 16px;
+    border: 2px solid #333;
+    color: #333;
+    background-color: transparent;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+#login_header_div {
+   margin: 1%;
+}
+
+#login_header_div a button {
+    font-size: 1rem;
+    padding: 10px 20px;
+    background-color: #084050;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#login_header_div a button:hover {
+    background-color: #02638c;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-header-div {
+    flex-grow: 1;
+    display: flex;
+    margin-left:4%;
+    margin-right:1%;
+}
+
+.search-header-div form {
+    width: 100%;
+    position: relative;
+
+}
+
+#searchInput {
+    width: 85%;
+
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 4px 0 0 4px; /* Rounded corners on the left side */
+    outline: none; /* Removes the default focus outline */
+}
+
+#searchButton {
+    padding: 10px;
+
+    background: #084050;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0; /* Rounded corners on the right side */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#searchButton i {
+    font-size: 1rem; /* Icon size */
+}
+
+#searchButton:hover {
+    background-color: #02638c;
+}
+
+/* Adjust the form elements alignment if necessary */
+.search-header-div form {
+    align-items: center; /* Align the input and button vertically */
+}
+.navbar {
+    display: flex;
+    background-color: #084050;
+    padding: 0;
+}
+
+.navbar a {
+    flex: 1;
+    text-align: center;
+    color: white;
+    padding: 12px 0;
+    text-decoration: none;
+    border-right: 1px solid #02638c;
+    transition: background-color 0.3s;
+}
+
+.navbar a:last-child {
+    border-right: none;
+}
+
+.navbar a:hover {
+    background-color: #02638c;
+}
+

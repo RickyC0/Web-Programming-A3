@@ -1,8 +1,11 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+
+//Routers
 const nbOfVisitsRouter=require('./routes/nbOfVisits');
 const formValidationRouter=require('./routes/formValidation');
+const userValidation=require('./routes/users');
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
@@ -78,9 +81,13 @@ app.use('/ex2',nbOfVisitsRouter);
 app.use('/ex3',formValidationRouter);
 
 // Routes for Exercise 4 (Pet Store) with multiple sub-pages
+
+
 app.get('/ex4', (req, res) => {
     res.render('ex4/home');
 });
+
+app.use('/ex4/user', userValidation);
 
 app.get('/ex4/find-pet', (req, res) => {
     res.render('ex4/find-pet');
@@ -141,7 +148,6 @@ function uppercaseFirstandLast(str) {
     return result.trim();
 }
 
-//TODO Fix this
 function findAverageAndMedian(input) {
     // Handle the case where the input might be empty or contains non-numeric values
     if (input.length === 0 || input.some(isNaN)) {

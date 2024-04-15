@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <title><%=title %></title>
 
+    <!-- Stylesheet for the header -->
+    <link rel="stylesheet" type="text/css" href="/css/ex4/partials/header.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+
+    <!--Stylesheet for the footer -->
+    <link rel="stylesheet" type="text/css" href="/css/ex4/partials/footer.css">
+
+    <!--Stylesheet for the specific html file-->
     <link rel="stylesheet" type="text/css" href="<%= css %>">
     <script src="/js/ex4/utilities.js"></script>
 </head>
@@ -20,16 +29,26 @@
 
         <div class="search-header-div">
 
-            <!-- Search Bar -->
+            <form action="/ex4/find-pet" method="GET">
+                <label for="searchInput"></label>
+                <input type="text" id="searchInput" name="userSearch" placeholder="Search for a pet...">
+                <button type="submit" id="searchButton">
+                    <i class="fa fa-search"></i> <!-- Using Font Awesome for the search icon -->
+                </button>
+            </form>
 
         </div>
 
-        <div class="login-header-div">
-            <!-- Login code -->
+        <div id="login_header_div">
+            <a href='/ex4/user'>
+                <button>Login/Signup</button>
+            </a>
         </div>
 
 
-        <p id="time-in-header"></p>
+        <div id="time-in-header-div">
+            <p id="time-in-header"></p>
+        </div>
 
 
     </div>

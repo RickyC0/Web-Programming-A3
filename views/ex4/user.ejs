@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Signup Forms</title>
+    <link rel="stylesheet" type="text/css" href="/css/ex4/user.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('loginForm').addEventListener('submit', function (event) {
+                var username = document.getElementById('loginUsername').value;
+                var password = document.getElementById('loginPassword').value;
+                if (!validateUsername(username) || !validatePassword(password)) {
+                    event.preventDefault(); // Prevent form submission
+                    alert('Please enter a valid username and password for login.');
+                }
+            });
+
+            document.getElementById('signupForm').addEventListener('submit', function (event) {
+                var username = document.getElementById('signupUsername').value;
+                var password = document.getElementById('signupPassword').value;
+                if (!validateUsername(username) || !validatePassword(password)) {
+                    event.preventDefault(); // Prevent form submission
+                    alert('Please enter a valid username and password for signup.');
+                }
+            });
+
+            function validateUsername(username) {
+                return /^[A-Za-z0-9]+$/.test(username);
+            }
+
+            function validatePassword(password) {
+                return password.length >= 4 && /[A-Za-z]/.test(password) && /\d/.test(password);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <h2>Login</h2>
+        <form id="loginForm" method="post" action="/ex4/user/login">
+            <label for="loginUsername">Enter your Username here:</label>
+            <input type="text" id="loginUsername" placeholder="Username..." required>
+            <br>
+
+            <label for="loginPassword">Enter your Password here:</label>
+            <input type="password" id="loginPassword" placeholder="Password..." required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Signup</h2>
+        <form id="signupForm" method="post" action="/ex4/user/signup">
+            <label for="signupUsername">Enter your Username here:</label>
+            <input type="text" id="signupUsername" placeholder="Username..." required>
+            <br>
+
+            <label for="signupPassword">Enter your Password here:</label>
+            <input type="password" id="signupPassword" placeholder="Password..." required>
+            <button type="submit">Signup</button>
+        </form>
+    </div>
+</body>
+</html>

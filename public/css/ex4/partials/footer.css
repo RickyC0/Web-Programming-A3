@@ -1,0 +1,12 @@
+#footer_div {
+    background-color: #084050;
+    color: white;
+    text-align: center;
+    padding: 1% 2%;
+    position: relative;
+
+    width: 100%;
+    bottom: 0;
+    box-sizing: border-box;
+    border: 1px solid #bbb;
+}

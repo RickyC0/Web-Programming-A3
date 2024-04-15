@@ -1,0 +1,67 @@
+body {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    background-color: #e9ecef; /* A gentle, neutral background color */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of the viewport */
+}
+
+form {
+    background-color: white;
+    padding: 40px; /* More padding for a spacious feel */
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* A more pronounced shadow for depth */
+    width: 100%;
+    max-width: 450px; /* A slightly larger max-width */
+    margin: 20px; /* Spacing around the form */
+}
+
+input, button {
+    padding: 15px 20px; /* Increased padding for a larger touch area */
+    margin-top: 15px; /* Increase margin-top for more space between fields */
+    width: calc(100% - 40px); /* Subtract padding from width */
+    box-sizing: border-box;
+    border: 1px solid #ced4da; /* A softer border color */
+    border-radius: 5px; /* Smoother border radius */
+    transition: border 0.3s, box-shadow 0.3s; /* Transition for border and shadow */
+}
+
+input:focus, button:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+button {
+    background-color: #084050; /* Primary button color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Transition for background color and transform */
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+/* Additional styles for placeholder text */
+input::placeholder {
+    color: #6c757d; /* A darker shade for placeholder to increase readability */
+}
+
+/* Style for form titles */
+h2 {
+    color: #343a40; /* Darker color for headers for contrast */
+    text-align: center;
+    margin: 0 0 30px; /* More space after the title */
+    font-size: 24px; /* Slightly larger font size for the title */
+}
+
+/* Extra spacing for better visual grouping */
+div {
+    margin-bottom: 2rem; /* Space between form groups */
+}
