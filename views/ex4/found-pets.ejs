@@ -1,0 +1,27 @@
+<%- include('partials/header' , {title:'Pets Found' , css:'/css/ex4/found-pets.css'})%>
+
+<div id="main_content_div">
+    <h1>Matching Pets</h1>
+    <% if (pets.length > 0) { %>
+        <ul>
+            <% pets.forEach(function(pet) { %>
+                <li>
+                    <h2>Name: <%=pet.petName%></h2><br>
+                    <strong>Type:</strong> <%= pet.petType %><br>
+                    <strong>Breed:</strong> <%= pet.breed %><br>
+                    <strong>Age:</strong> <%= pet.age %><br>
+                    <strong>Gender:</strong> <%= pet.gender %><br>
+                    <strong>Gets Along With Dogs:</strong> <%= pet.getsAlongDogs %><br>
+                    <strong>Gets Along With Cats:</strong> <%= pet.getsAlongCats %><br>
+                    <strong>Suitable For Children:</strong> <%= pet.suitableForChildren %><br>
+                    <strong>Comments:</strong> <%= pet.comments %>
+
+                </li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>No matching pets found.</p>
+    <% } %>
+</div>
+
+<%- include('partials/footer')%>

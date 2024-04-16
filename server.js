@@ -124,9 +124,9 @@ app.get('/ex4/give-pet', (req, res) => {
 app.post('/ex4/give-pet/form', upload.none(), (req, res) => {
     const username=req.session.user.username;
     const {
-        'pet-type': petType, breed, age, gender,
-        'gets-along-dogs': getsAlongDogs, 'gets-along-cats': getsAlongCats,
-        'suitable-for-children': suitableForChildren,
+        'petName':petName,'petType':petType, breed, age, gender,
+        getsAlongDogs, getsAlongCats,
+        suitableForChildren,
         comments, 'owner-family-name': ownerFamilyName,
         'owner-first-name': ownerFirstName, 'owner-email': ownerEmail
     } = req.body;
@@ -135,6 +135,7 @@ app.post('/ex4/give-pet/form', upload.none(), (req, res) => {
         const newPetData = [
             nextId,
             username,
+            petName,
             petType,
             breed,
             age,
@@ -158,6 +159,68 @@ app.post('/ex4/give-pet/form', upload.none(), (req, res) => {
     }).catch((err) => {
         console.error('Failed to load or update pets data', err);
         res.status(500).json({ result: false, message: 'Failed to load pets data!' });
+    });
+});
+
+app.post('/ex4/find-pet/form', (req, res) => {
+    const {petType, breed, age, gender, getsAlongDogs, getsAlongCats, suitableForChildren } = req.body;
+
+    readPetsFile().then(({ data }) => {
+        const pets = data.map(line => {
+            const [
+                id,
+                owner,
+                name,
+                type,
+                petBreed,
+                petAge,
+                petGender,
+                getsAlongDogsFormatted,
+                getsAlongCatsFormatted,
+                suitableForChildrenFormatted,
+                comments
+            ] = line.split(':');
+
+
+
+            return {
+                petName: name,
+                petType: type,
+                breed: petBreed,
+                age: petAge,
+                gender: petGender,
+                getsAlongDogs: getsAlongDogsFormatted,
+                getsAlongCats: getsAlongCatsFormatted,
+                suitableForChildren: suitableForChildrenFormatted,
+                comments
+            };
+        });
+
+        const matches = pets.filter(pet => {
+            // Convert checkbox presence ('on') or absence (undefined) to 'Yes' or 'No'
+            const getsAlongDogsMatch = getsAlongDogs ? 'Yes' : 'No'; // assumes 'on' implies 'Yes', absence implies 'No'
+            const getsAlongCatsMatch = getsAlongCats ? 'Yes' : 'No'; // assumes 'on' implies 'Yes', absence implies 'No'
+            const suitableForChildrenMatch = suitableForChildren ? 'Yes' : 'No'; // assumes 'on' implies 'Yes', absence implies 'No'
+
+            return (
+                pet.petType === petType &&
+                (!breed || pet.breed.toLowerCase() === breed.toLowerCase()) &&
+                (!age || pet.age === age) &&
+                (!gender || pet.gender.toLowerCase() === gender.toLowerCase()) &&
+                pet.getsAlongDogs === getsAlongDogsMatch &&
+                pet.getsAlongCats === getsAlongCatsMatch &&
+                pet.suitableForChildren === suitableForChildrenMatch
+            );
+        });
+
+        res.render('ex4/found-pets', {
+            user: req.session.user,
+            pets: matches
+        });
+
+    }).catch(err => {
+        console.error('Failed to read pets data', err);
+        res.status(500).json({ result: false, message: 'Failed to search for pets' });
     });
 });
 
@@ -282,6 +345,7 @@ function readPetsFile() {
         });
     });
 }
+
 
 // Start the server
 const PORT =  3000;

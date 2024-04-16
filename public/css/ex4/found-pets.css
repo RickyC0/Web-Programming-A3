@@ -1,0 +1,64 @@
+h1 {
+    color: #333;
+    text-align: center;
+    text-decoration: underline;
+}
+
+p {
+    color: #666;
+    text-align: center; /* Center-aligns the text if no pets found */
+}
+
+#main_content_div {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the content vertically in the div */
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    width: 100%; /* Ensures the UL takes the full width of its parent */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Distributes space around items */
+    margin: 0 auto; /* Centers the UL in the parent div */
+}
+
+li {
+    background-color: #bbbbbb;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    flex-basis: calc(25%); /* Calculation to allow 3 items per row, subtracting margins */
+    margin: 10px; /* Adds margin around each item */
+}
+
+h2, strong {
+    color: #333;
+}
+
+li strong {
+    font-weight: bold;
+    display: block; /* Makes the label appear on a new line */
+}
+
+li br {
+    margin-bottom: 5px; /* Adds some spacing after the breaks */
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+    margin-right: 5px;
+}
+
+/* Optional: Add a hover effect to list items for better interaction feedback */
+li:hover {
+    background-color: lightgrey;
+}

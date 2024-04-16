@@ -8,8 +8,13 @@
             <legend>Pet Information</legend>
 
             <div class="form-group">
-                <label for="pet-type">Pet Type:</label>
-                <select id="pet-type" name="pet-type" aria-label="Pet Type" required>
+                <label for="petName">Pet Name:</label>
+                <input type="text" id="petName" name="petName" placeholder="Pet's Name" pattern="[A-Za-z\s-]+" required>
+            </div>
+
+            <div class="form-group">
+                <label for="petType">Pet Type:</label>
+                <select id="petType" name="petType" aria-label="Pet Type" required>
                     <option value="">Select a pet type</option>
                     <option value="dog">Dog</option>
                     <option value="cat">Cat</option>
@@ -43,18 +48,18 @@
             </div>
 
             <div class="form-group">
-                <label for="gets-along-dogs">Gets along with other dogs:</label>
-                <input type="checkbox" id="gets-along-dogs" name="gets-along-dogs">
+                <label for="getsAlongDogs">Gets along with other dogs:</label>
+                <input type="checkbox" id="getsAlongDogs" name="getsAlongDogs">
             </div>
 
             <div class="form-group">
-                <label for="gets-along-cats">Gets along with other cats:</label>
-                <input type="checkbox" id="gets-along-cats" name="gets-along-cats">
+                <label for="getsAlongCats">Gets along with other cats:</label>
+                <input type="checkbox" id="getsAlongCats" name="getsAlongCats">
             </div>
 
             <div class="form-group">
-                <label for="suitable-for-children">Suitable for a family with small children:</label>
-                <input type="checkbox" id="suitable-for-children" name="suitable-for-children">
+                <label for="suitableForChildren">Suitable for a family with small children:</label>
+                <input type="checkbox" id="suitableForChildren" name="suitableForChildren">
             </div>
 
             <div class="form-group">

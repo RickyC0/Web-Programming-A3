@@ -59,6 +59,7 @@ document.getElementById('pet-form').addEventListener('submit', function(event) {
         .then(response => response.json()) // Assuming the server responds with JSON
         .then(data => {
             alert('Form data saved successfully!'); // Display an alert on success
+            document.getElementById('pet-form').reset();
 
         })
         .catch(error => {
