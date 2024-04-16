@@ -1,13 +1,17 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-
+const fs=require('fs');
+const multer=require('multer');
+const upload=multer();
 //Routers
 const nbOfVisitsRouter=require('./routes/nbOfVisits');
 const formValidationRouter=require('./routes/formValidation');
 const userValidation=require('./routes/users');
 const session = require('express-session');
 
+//Paths
+const PETS_FILEPATH = path.join(__dirname, 'data', 'pets.txt');
 
 
 // Set the view engine to EJS
@@ -117,6 +121,46 @@ app.get('/ex4/give-pet', (req, res) => {
     }
 });
 
+app.post('/ex4/give-pet/form', upload.none(), (req, res) => {
+    const username=req.session.user.username;
+    const {
+        'pet-type': petType, breed, age, gender,
+        'gets-along-dogs': getsAlongDogs, 'gets-along-cats': getsAlongCats,
+        'suitable-for-children': suitableForChildren,
+        comments, 'owner-family-name': ownerFamilyName,
+        'owner-first-name': ownerFirstName, 'owner-email': ownerEmail
+    } = req.body;
+
+    readPetsFile().then(({ data, nextId }) => {
+        const newPetData = [
+            nextId,
+            username,
+            petType,
+            breed,
+            age,
+            gender,
+            getsAlongDogs ? 'Yes' : 'No',
+            getsAlongCats ? 'Yes' : 'No',
+            suitableForChildren ? 'Yes' : 'No',
+            comments,
+            ownerFamilyName,
+            ownerFirstName,
+            ownerEmail
+        ].join(':') + '\n';
+
+        fs.appendFile(PETS_FILEPATH, newPetData, (err) => {
+            if (err) {
+                console.error('Error appending to file', err);
+                return res.status(500).json({ result: false, message: 'Failed to save form info!' });
+            }
+            res.json({ result: true, message: 'Form Saved Successfully!' });
+        });
+    }).catch((err) => {
+        console.error('Failed to load or update pets data', err);
+        res.status(500).json({ result: false, message: 'Failed to load pets data!' });
+    });
+});
+
 app.get('/ex4/pet-care', (req,res)=>{
     res.render('ex4/pet-care',{ user: req.session.user });
 })
@@ -213,6 +257,30 @@ function find4Digits(str) {
     }
 
     return false;
+}
+
+function readPetsFile() {
+    return new Promise((resolve, reject) => {
+        fs.readFile(PETS_FILEPATH, 'utf8', (err, data) => {
+            if (err) {
+                if (err.code === 'ENOENT') {
+                    // File not found, start fresh with an empty array and initial ID
+                    resolve({ data: [], nextId: 1 });
+                } else {
+                    reject(err); // Other filesystem errors
+                }
+            } else {
+                const lines = data.trim().split('\n').filter(line => line);
+                const lastLine = lines[lines.length - 1];
+                const lastId = lastLine ? parseInt(lastLine.split(':')[0], 10) : 0;
+                if (isNaN(lastId)) {
+                    reject(new Error('Failed to parse the last ID from the pets file.'));
+                } else {
+                    resolve({ data: lines, nextId: lastId + 1 });
+                }
+            }
+        });
+    });
 }
 
 // Start the server

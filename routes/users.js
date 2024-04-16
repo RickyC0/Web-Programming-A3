@@ -3,7 +3,6 @@ const router = express.Router()
 const fs=require('fs');
 const path=require('path');
 const bodyParser=require('body-parser');
-const session = require('express-session');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
